@@ -1,4 +1,5 @@
-# import os
+import os
+from astar import Astar
 
 def readFile(file):
     # Asumsikan semua elemen matrix pada file memiliki tipe float
@@ -10,12 +11,25 @@ def readFile(file):
 def isSquare(matrix):
     return all(len(i) == len(matrix) for i in matrix)
 
-# path = os.path.realpath(__file__)
-# dir = os.path.dirname(path)
-# dir = dir.replace('src', 'test')
-# os.chdir(dir)
-# matrix = readFile('test1.txt')
-# if (isSquare(matrix)):
-#     print("yes")
-# else:
-#     print("no")
+path = os.path.realpath(__file__)
+dir = os.path.dirname(path)
+dir = dir.replace('src', 'test')
+os.chdir(dir)
+matrix = readFile('test1.txt')
+print(matrix)
+
+if (isSquare(matrix)):
+    print("yes")
+else:
+    print("no")
+
+# Kenapa error ya kalau dijalanin?
+# as = Astar(matrix)
+# print(as.getadjList)
+# print(as.geth) 
+
+
+
+
+
+

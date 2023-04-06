@@ -1,7 +1,7 @@
 import graph
 import collections
 
-class astar(graph):
+class Astar(graph):
     def __init__(self, matrix):
         super().__init__(matrix)
 
@@ -17,5 +17,13 @@ class astar(graph):
 
     def heuristic(self, idx):
         return self.h[idx]
+    
+    def getadjList(self):
+        return self.adjList
+    
+    def geth(self):
+        return self.h
+
+
                 
 
