@@ -9,8 +9,8 @@ class astar(graph):
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] != 0:
-                    self.adjList[i].append(j)
-                    
+                    self.adjList[i].append((j, self.matrix[i][j]))
+
         self.h = dict()
         for i in range(len(self.matrix)):
             self.h[i] = 1
