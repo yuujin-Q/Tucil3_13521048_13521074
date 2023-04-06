@@ -23,11 +23,9 @@ if (isSquare(matrix)):
 else:
     print("no")
 
-# Kenapa error ya kalau dijalanin?
-# as = Astar(matrix)
-# print(as.getadjList)
-# print(as.geth) 
-
+graphA = Astar(matrix)
+print(graphA.adjList)
+print(graphA.h)
 
 
 

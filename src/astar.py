@@ -1,4 +1,4 @@
-import graph
+from graph import graph
 import collections
 
 class Astar(graph):
@@ -13,16 +13,10 @@ class Astar(graph):
 
         self.h = dict()
         for i in range(len(self.matrix)):
-            self.h[i] = 1
+            (self.h)[i] = 1
 
     def heuristic(self, idx):
         return self.h[idx]
-    
-    def getadjList(self):
-        return self.adjList
-    
-    def geth(self):
-        return self.h
 
 
                 
