@@ -10,7 +10,7 @@ class GraphReader:
         self.adjMatrix = []
         self.fileName = ""
 
-    def readFile(self):
+    def read_graph_file(self):
         # Detect file
         isValid = False
         path = os.path.realpath(__file__)
@@ -63,16 +63,25 @@ class GraphReader:
                     if self.adjMatrix[i][j] != 0:
                         self.adjMatrix[i][j] = haversine_distance(self.latitude[i], self.longitude[i], self.latitude[j], self.longitude[j])
 
-# Try test2.txt
-graf1 = GraphReader()
-graf1.readFile()
-print(graf1.latitude)
-print(graf1.longitude)
-print(graf1.locationName)
-print(graf1.coordinateTuple)
-print(graf1.adjMatrix)
+    def reader_print_info(self):
+        print("Latitudes:")
+        print(self.latitude, '\n')
+
+        print("Longitudes:")
+        print(self.longitude, '\n')
+
+        print("Node Names:")
+        print(self.locationName, '\n')
+
+        print("Coordinates:")
+        print(self.coordinateTuple, '\n')
+
+        print("Adjacency Matrix:")
+        for row in self.adjMatrix:
+            print(row)
 
 
-                
-
-    
+# # Try test2.txt
+# graf1 = GraphReader()
+# graf1.read_graph_file()
+# graf1.reader_print_info()
