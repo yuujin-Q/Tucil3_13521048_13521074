@@ -54,7 +54,7 @@ class GraphReader:
         resultMatrix = result[1]   
         listresultMatrix = resultMatrix.splitlines(False) 
         self.adjMatrix = [[float(num) for num in line.split(' ')] for line in listresultMatrix]
-        if (not isSquare(self.adjMatrix)):
+        if (not is_square(self.adjMatrix)):
             print("Matriks tidak berbentuk persegi. Silakan coba lagi.")
         else:
             # Calculate haversine distance for those that are not valued 0

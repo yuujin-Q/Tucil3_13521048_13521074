@@ -10,10 +10,5 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     return (6371 * (2 * asin(sqrt(a))))
 
-def isSquare(matrix):
+def is_square(matrix):
     return all(len(i) == len(matrix) for i in matrix)
-
-
-
-
-
