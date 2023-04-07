@@ -39,7 +39,7 @@ class LocationGraph(nx.DiGraph):
         if cost == None:
             return float('inf')
         else:
-            return cost
+            return cost['weight']
         
     """heuristic function"""
     def get_distance_between(self, start_node_name, finish_node_name):
@@ -54,7 +54,7 @@ class LocationGraph(nx.DiGraph):
             return haversine_distance(node_1['lat'], node_1['lon'], node_2['lat'], node_2['lon'])
     
     """view graph in matplotlib"""
-    def display_graph(self, solution_path=None, with_weights=True):
+    def display_graph(self, with_weights=True, solution_path=None):
         if solution_path is None:            
             pos = nx.spring_layout(self)
             nx.draw(self, pos, with_labels=True)
