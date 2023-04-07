@@ -1,5 +1,6 @@
 import os
 from utils import *
+from graph import LocationGraph
 
 class GraphReader:
     def __init__(self):
@@ -63,7 +64,7 @@ class GraphReader:
                     if self.adjMatrix[i][j] != 0:
                         self.adjMatrix[i][j] = haversine_distance(self.latitude[i], self.longitude[i], self.latitude[j], self.longitude[j])
 
-    def reader_print_info(self):
+    def print_reader_info(self):
         print("Latitudes:")
         print(self.latitude, '\n')
 
@@ -80,8 +81,21 @@ class GraphReader:
         for row in self.adjMatrix:
             print(row)
 
+    def get_location_graph(self):
+        result = LocationGraph()
+        
+        # add nodes
+        location_count = len(self.locationName)
+        for i in range(location_count):
+            result.add_node(self.locationName[i], self.latitude[i], self.longitude[i])
 
-# # Try test2.txt
-# graf1 = GraphReader()
-# graf1.read_graph_file()
-# graf1.reader_print_info()
+        # add edges
+        for i in range(location_count):
+            for j in range(location_count):
+                edge_weight = self.adjMatrix[i][j]
+                if edge_weight > 0:
+                    result.add_weighted_edges_from(self.locationName[i], self.locationName[j], edge_weight)
+
+
+        return result
+    
