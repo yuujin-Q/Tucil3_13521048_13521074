@@ -1,16 +1,14 @@
 import networkx as nx
 
-class LocationGraph(nx.Graph):
+"""LocationGraph: a wrapper class for nx.DiGraph (NetworkX's Directed Graph)"""
+class LocationGraph(nx.DiGraph):
     """constructor"""
     def __init__(self, incoming_graph_data=None, **attr):
         super().__init__(incoming_graph_data, **attr)
 
     """SETTERS (add nodes, edges)"""
     """add new node override"""
-    def add_node(self, node_name):
-        super().add_node(node_name)
-
-    def add_node(self, node_name, latitude, longitude):
+    def add_node(self, node_name, latitude=0, longitude=0):
         super().add_node(node_name, lat=latitude, lon=longitude)
 
     """add weighted edge override"""
@@ -41,8 +39,9 @@ class LocationGraph(nx.Graph):
         else:
             return cost
         
-    """heuristic"""
-    def get_real_cost(self, start_node_name, finish_node_name):
+    """heuristic function"""
+    def get_distance_between(self, start_node_name, finish_node_name):
+        # check for invalid node parameter
         if (not self.has_node(start_node_name)) or (not self.has_node(finish_node_name)):
             return float('inf')
         else:
@@ -53,7 +52,4 @@ class LocationGraph(nx.Graph):
             cost = (node_2['lat'] - node_1['lat']) ** 2 + (node_2['lon'] - node_1['lon']) ** 2
 
             return cost ** 0.5
-    
-
-    
     
