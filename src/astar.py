@@ -1,18 +1,18 @@
-from graph import graph
+from graphdata import *
 import collections
 
-class Astar(graph):
-    def __init__(self, matrix):
-        super().__init__(matrix)
+class Astar(graphdata):
+    def __init__(self):
+        super().__init__()
 
         self.adjList = collections.defaultdict(list)
-        for i in range(len(self.matrix)):
-            for j in range(len(self.matrix[i])):
-                if self.matrix[i][j] != 0:
-                    self.adjList[i].append((j, self.matrix[i][j]))
+        for i in range(len(self.adjMatrix)):
+            for j in range(len(self.adjMatrix[i])):
+                if self.adjMatrix[i][j] != 0:
+                    self.adjList[i].append((j, self.adjMatrix[i][j]))
 
         self.h = dict()
-        for i in range(len(self.matrix)):
+        for i in range(len(self.adjMatrix)):
             (self.h)[i] = 1
 
     def heuristic(self, idx):
