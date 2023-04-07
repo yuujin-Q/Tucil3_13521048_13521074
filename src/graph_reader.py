@@ -1,7 +1,7 @@
 import os
 from utils import *
 
-class graphdata:
+class GraphReader:
     def __init__(self):
         self.latitude = []
         self.longitude = []
@@ -57,14 +57,14 @@ class graphdata:
         if (not isSquare(self.adjMatrix)):
             print("Matriks tidak berbentuk persegi. Silakan coba lagi.")
         else:
-            # Calculate euclidean distance for those that are not valued 0
+            # Calculate haversine distance for those that are not valued 0
             for i in range(len(self.adjMatrix)):
                 for j in range(len(self.adjMatrix[i])):
                     if self.adjMatrix[i][j] != 0:
-                        self.adjMatrix[i][j] = euclidean(self.latitude[i], self.longitude[i], self.latitude[j], self.longitude[j])
+                        self.adjMatrix[i][j] = haversine_distance(self.latitude[i], self.longitude[i], self.latitude[j], self.longitude[j])
 
 # Try test2.txt
-graf1 = graphdata()
+graf1 = GraphReader()
 graf1.readFile()
 print(graf1.latitude)
 print(graf1.longitude)

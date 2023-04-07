@@ -1,7 +1,7 @@
-from graphdata import *
+from graph_reader import *
 import collections
 
-class Astar(graphdata):
+class Astar(GraphReader):
     def __init__(self):
         super().__init__()
 

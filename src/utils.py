@@ -1,6 +1,6 @@
 from math import *
 
-def euclidean(lat1, lon1, lat2, lon2):
+def haversine_distance(lat1, lon1, lat2, lon2):
     lat1 = radians(lat1)
     lon1 = radians(lon1)
     lat2 = radians(lat2)
