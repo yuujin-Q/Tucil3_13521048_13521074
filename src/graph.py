@@ -1,4 +1,6 @@
 import networkx as nx
+import matplotlib.pyplot as plt
+from utils import *
 
 """LocationGraph: a wrapper class for nx.DiGraph (NetworkX's Directed Graph)"""
 class LocationGraph(nx.DiGraph):
@@ -45,11 +47,25 @@ class LocationGraph(nx.DiGraph):
         if (not self.has_node(start_node_name)) or (not self.has_node(finish_node_name)):
             return float('inf')
         else:
-            # temporary implementation, euclidean distance
+            # haversine distance
             node_1 = self.nodes[start_node_name]
             node_2 = self.nodes[finish_node_name]
 
-            cost = (node_2['lat'] - node_1['lat']) ** 2 + (node_2['lon'] - node_1['lon']) ** 2
+            return haversine_distance(node_1['lat'], node_1['lon'], node_2['lat'], node_2['lon'])
+    
+    """view graph in matplotlib"""
+    def display_graph(self, solution_path=None, with_weights=True):
+        if solution_path is None:            
+            pos = nx.spring_layout(self)
+            nx.draw(self, pos, with_labels=True)
 
-            return cost ** 0.5
+            if with_weights is True:
+                # Draw edges with weights
+                edge_labels = {(u, v): f"{self[u][v]['weight'] : .3f}" for (u, v) in self.edges()}
+                nx.draw_networkx_edges(self, pos, width=2)
+                nx.draw_networkx_edge_labels(self, pos, edge_labels=edge_labels, font_size=12)
+
+            plt.show()
+        # todo: fix graph positioning and implement solution path coloring
+
     
