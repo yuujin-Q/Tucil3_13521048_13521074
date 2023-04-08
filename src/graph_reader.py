@@ -65,21 +65,10 @@ class GraphReader:
                         self.adjMatrix[i][j] = haversine_distance(self.latitude[i], self.longitude[i], self.latitude[j], self.longitude[j])
 
     def print_reader_info(self):
-        print("Latitudes:")
-        print(self.latitude, '\n')
 
-        print("Longitudes:")
-        print(self.longitude, '\n')
-
-        print("Node Names:")
-        print(self.locationName, '\n')
-
-        print("Coordinates:")
-        print(self.coordinateTuple, '\n')
-
-        print("Adjacency Matrix:")
-        for row in self.adjMatrix:
-            print(row)
+        print("Nama lokasi:")
+        for i in range(len(self.locationName)):
+            print("%d. %s" %(i+1, self.locationName[i]))
 
     def get_location_graph(self):
         result = LocationGraph()
