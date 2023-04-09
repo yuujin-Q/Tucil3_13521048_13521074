@@ -98,8 +98,8 @@ class RoutePlanner():
         return self.solution_cost, self.solution_path
     
     def print_solution(self):
-        print(f"Solution Path = {self.solution_path}")
-        print(f"Solution Total Cost = {self.solution_cost}")
+        print(f"Rute = {self.solution_path}")
+        print(f"Biaya total = {self.solution_cost}")
 
     def reset_solution(self):
         self.solution_cost = float('inf')

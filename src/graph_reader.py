@@ -107,7 +107,7 @@ class GraphReader:
             for j in range(location_count):
                 edge_weight = self.adj_matrix[i][j]
                 if edge_weight > 0:
-                    result.add_weighted_edges_from(self.location_name[i], self.location_name[j], edge_weight)
+                    result.add_weighted_edge(self.location_name[i], self.location_name[j], edge_weight)
 
         return result
     

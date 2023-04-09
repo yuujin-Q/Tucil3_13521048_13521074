@@ -7,7 +7,6 @@ from utils import *
 reader = GraphReader()
 reader.read_graph_file()
 
-
 # select algorithm choice (UCS/A*)
 algorithm_choice_prompt = (
     "Pilih algoritma yang ingin digunakan:\n"
@@ -27,14 +26,11 @@ print()
 # start route search
 print("Hasil pencarian")
 location_graph = reader.get_location_graph()
-solver = RoutePlanner(location_graph, with_astar_heuristic=use_astar, show_debug=True)
+solver = RoutePlanner(location_graph, with_astar_heuristic=use_astar, show_debug=False)
 found_route = solver.plan_route(reader.location_name[start_index - 1], reader.location_name[finish_index - 1])
 if found_route:
     solver.print_solution()
 else:
     print("Rute tidak ditemukan")
 
-# my_graph.display_graph(with_weights=False)
-
-# print(astar_graph.h)
-# print(astar_graph.adjList)
+location_graph.display_graph(with_weights=True, solution_path=solver.solution_path)

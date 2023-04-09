@@ -14,7 +14,7 @@ class LocationGraph(nx.DiGraph):
         super().add_node(node_name, lat=latitude, lon=longitude)
 
     """add weighted edge override"""
-    def add_weighted_edges_from(self, start_node_name, finish_node_name, weight):
+    def add_weighted_edge(self, start_node_name, finish_node_name, weight):
         return super().add_weighted_edges_from([(start_node_name, finish_node_name, weight)])
 
     """GETTERS"""    
@@ -22,16 +22,6 @@ class LocationGraph(nx.DiGraph):
     def get_neighbors(self, n):
         # return iterator to neighbors of n
         return super().neighbors(n)
-    
-    """get nodes"""
-    def get_nodes(self):
-        # return iterator to nodes of graph
-        return super().nodes()
-
-    """get edges"""
-    def get_edges(self):
-        # return iterator to edges of graph
-        return super().edges()
     
     """get edge cost"""
     def get_edge_cost(self, start_node_name, finish_node_name):
@@ -55,17 +45,30 @@ class LocationGraph(nx.DiGraph):
     
     """view graph in matplotlib"""
     def display_graph(self, with_weights=True, solution_path=None):
-        if solution_path is None:            
-            pos = nx.spring_layout(self)
-            nx.draw(self, pos, with_labels=True)
+        node_pos = {n:(d['lon'], d['lat']) for n,d in self.nodes(data=True)}
+        node_index = {n:(idx+1) for idx, n in enumerate(self.nodes())}
+        
+        if solution_path is not None:
+            # create a list of edge colors
+            edge_colors = []
+            edge_route_tuples = [(solution_path[i], solution_path[i+1]) for i in range(len(solution_path)-1)]
+            
+            for edge in self.edges():
+                if edge in edge_route_tuples:
+                    edge_colors.append('y')
+                else:
+                    edge_colors.append((0.5,0.5,0.5,0.5))   # transparent gray
+        else:
+            edge_colors = (0.5,0.5,0.5,0.5)     # default: transparent gray
 
-            if with_weights is True:
-                # Draw edges with weights
-                edge_labels = {(u, v): f"{self[u][v]['weight'] : .3f}" for (u, v) in self.edges()}
-                nx.draw_networkx_edges(self, pos, width=2)
-                nx.draw_networkx_edge_labels(self, pos, edge_labels=edge_labels, font_size=12)
+        # Draw nodes, node indices, edges, solution edges
+        nx.draw(self, pos=node_pos, labels=node_index, edge_color=edge_colors)
 
-            plt.show()
-        # todo: fix graph positioning and implement solution path coloring
-
+        if with_weights is True:
+            # Draw edges with weights
+            edge_labels = {(u, v): f"{self[u][v]['weight'] : .2f}" for (u, v) in self.edges()}
+            nx.draw_networkx_edge_labels(self, node_pos, edge_labels=edge_labels)
+            
+        plt.axis('off')
+        plt.show()
     
