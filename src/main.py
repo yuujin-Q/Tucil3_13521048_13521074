@@ -1,7 +1,5 @@
 from graph import *
 from graph_reader import *
-from ucs import *
-from astar import *
 from route_planner import *
 
 reader = GraphReader()
