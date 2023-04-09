@@ -12,3 +12,20 @@ def haversine_distance(lat1, lon1, lat2, lon2):
 
 def is_square(matrix):
     return all(len(i) == len(matrix) for i in matrix)
+
+def validate_int_input(min_value, max_value, choices=""):
+    print(choices)
+
+    is_valid = False
+    while not is_valid:
+        input_value = input("Ketik angka: ")
+        try:
+            input_value = int(input_value)
+            if min_value <= input_value <= max_value:
+                is_valid = True
+            else:
+                print("Masukan tidak valid")
+        except:
+            print("Masukan tidak valid")
+    
+    return input_value
