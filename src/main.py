@@ -2,6 +2,7 @@ from graph import *
 from graph_reader import *
 from ucs import *
 from astar import *
+from route_planner import *
 
 reader = GraphReader()
 reader.read_graph_file()
@@ -48,13 +49,21 @@ while (not isValid):
     else:
         isValid = True
 
-if choice == "1":
-    print()
-    ucs_graph = UCS(my_graph, True)
-    ucs_graph.ucs_search(reader.locationName[awal - 1], reader.locationName[akhir - 1])
-    print()
-    ucs_graph.print_solution()
-else:
-    print()
-    astar_graph = Astar(reader, awal - 1, akhir - 1)
-    path, distance = astar_graph.astar_search(reader)
+# if choice == "1":
+#     print()
+#     ucs_graph = UCS(my_graph, True)
+#     ucs_graph.ucs_search(reader.locationName[awal - 1], reader.locationName[akhir - 1])
+#     print()
+#     ucs_graph.print_solution()
+# else:
+#     print()
+#     astar_graph = AStar(reader, awal - 1, akhir - 1)
+#     path, distance = astar_graph.astar_search(reader)
+
+use_astar = False if choice == "1" else True
+
+solver = RoutePlanner(my_graph, with_astar_heuristic=use_astar, show_debug=True)
+print(solver.get_solution())
+solver.plan_route(reader.locationName[awal - 1], reader.locationName[akhir - 1])
+print()
+solver.print_solution()
