@@ -20,15 +20,15 @@ print()
 
 # show locations, select start and finish point of search
 reader.print_reader_info()
-start_index = validate_int_input(1, len(reader.coordinateTuple), "Pilih tujuan awal")
-finish_index = validate_int_input(1, len(reader.coordinateTuple), "Pilih tujuan akhir")
+start_index = validate_int_input(1, len(reader.coordinate_tuple), "Pilih tujuan awal")
+finish_index = validate_int_input(1, len(reader.coordinate_tuple), "Pilih tujuan akhir")
 print()
 
 # start route search
 print("Hasil pencarian")
 location_graph = reader.get_location_graph()
 solver = RoutePlanner(location_graph, with_astar_heuristic=use_astar, show_debug=True)
-found_route = solver.plan_route(reader.locationName[start_index - 1], reader.locationName[finish_index - 1])
+found_route = solver.plan_route(reader.location_name[start_index - 1], reader.location_name[finish_index - 1])
 if found_route:
     solver.print_solution()
 else:
