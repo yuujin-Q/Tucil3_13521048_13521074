@@ -3,8 +3,19 @@ from graph_reader import *
 from route_planner import *
 from utils import *
 
+# select adjacency matrix mode
+weight_choice_prompt = (
+    "Pilih mode penentuan bobot sisi:\n"
+    "1. Perhitungan Haversine (Koordinat)\n"
+    "2. Matriks ketetanggaan"
+)
+weight_choice = validate_int_input(1, 2, weight_choice_prompt)
+use_adj_matrix = False if weight_choice == 1 else True
+print()
+
+
 # select and read map file
-reader = GraphReader()
+reader = GraphReader(use_adj_matrix)
 reader.read_graph_file()
 
 # select algorithm choice (UCS/A*)
