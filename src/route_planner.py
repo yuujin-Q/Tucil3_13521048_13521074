@@ -31,6 +31,10 @@ class RoutePlanner():
         
         def add_self_to_path_list(self):
             self.path_list = self.path_list + [self.name]
+        
+        def __lt__(self, other):
+            # less than comparator
+            return self.path_cost < other.path_cost
             
 
     def plan_route(self, start_node_name, finish_node_name):
