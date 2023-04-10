@@ -1,0 +1,19 @@
+pasteur_paskal -6.90026 107.59735
+paskal_radjiman -6.90397 107.59751
+radjiman_otten -6.90382 107.6012
+pasteur_otten -6.90027 107.59829 
+paskal_padjajaran -6.90638 107.59748
+pandu_cemetery -6.89815 107.59308
+pasteur_eyckman -6.89627 107.59719
+eyckman_cipaganti -6.89559 107.60209
+cipaganti_pasteur -6.90006 107.60219
+~
+0 1 0 1 0 1 1 0 0
+1 0 1 0 1 0 0 0 0
+0 1 0 1 0 0 0 0 1
+1 0 1 0 0 0 0 0 1
+0 1 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 1 0 1
+0 0 1 1 0 0 0 1 0
