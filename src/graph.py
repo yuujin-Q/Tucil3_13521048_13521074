@@ -44,11 +44,11 @@ class LocationGraph(nx.DiGraph):
             return haversine_distance(node_1['lat'], node_1['lon'], node_2['lat'], node_2['lon'])
     
     """view graph in matplotlib"""
-    def display_graph(self, with_weights=True, solution_path=None):
+    def display_graph(self, with_weights=True, solution_path=[]):
         node_pos = {n:(d['lon'], d['lat']) for n,d in self.nodes(data=True)}
         node_index = {n:(idx+1) for idx, n in enumerate(self.nodes())}
         
-        if solution_path is not None:
+        if solution_path != []:
             # create a list of edge colors
             edge_colors = []
             edge_route_tuples = [(solution_path[i], solution_path[i+1]) for i in range(len(solution_path)-1)]
@@ -72,7 +72,8 @@ class LocationGraph(nx.DiGraph):
                     node_colors.append('c')
                     
         else:
-            edge_colors = (0.5,0.5,0.5,0.5)     # default: transparent gray
+            edge_colors = (0.5,0.5,0.5,0.5)     # default: transparent gray, cyan
+            node_colors = 'c'
 
         # Draw nodes, node indices, edges, solution edges
         nx.draw(self, pos=node_pos, labels=node_index, edge_color=edge_colors, node_color=node_colors)
