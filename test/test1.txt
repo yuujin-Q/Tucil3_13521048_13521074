@@ -1,7 +1,23 @@
-0 3 0 0 0 12 0
-3 0 5 0 0 0 4
-0 5 0 6 0 0 3
-0 0 6 0 1 0 0
-0 0 0 1 0 10 7
-12 0 0 0 10 0 2
-0 4 3 0 7 2 0
+sangkuriang_siliwangi -6.884907 107.612047
+simpang_dago -6.885235 107.613702
+tubisluar_djuanda -6.883440 107.614496
+djuanda_dayangsumbi -6.887404 107.613568
+siliwangi_sumurbandung -6.885160 107.612980
+sumurbandung_dayangsumbi -6.886635 107.611623
+dipatiukur_sekeloa -6.890385 107.616660
+djuanda_teukuumar -6.891491 107.613161
+teukuumar_dipatiukur -6.892348 107.617748
+sekeloa_tubisdalam -6.889558 107.617266
+tubisluar_tubisdalam -6.885156 107.616411
+~
+0 0 0 0 1 0 0 0 0 0 0
+0 0 1 1 1 0 1 0 0 0 0
+0 1 0 0 0 0 0 0 0 0 1
+0 1 0 0 0 1 0 1 0 0 0
+1 1 0 0 0 1 0 0 0 0 0
+0 0 0 1 1 0 0 0 0 0 0
+0 1 0 0 0 0 0 0 1 1 0
+0 0 0 1 0 0 0 0 1 0 0
+0 0 0 0 0 0 1 1 0 0 0
+0 0 0 0 0 0 1 0 0 0 1
+0 0 1 0 0 0 0 0 0 1 0
