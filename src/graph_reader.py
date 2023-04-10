@@ -3,13 +3,14 @@ from utils import *
 from graph import LocationGraph
 
 class GraphReader:
-    def __init__(self):
+    def __init__(self, use_weighted_matrix=False):
         self.latitude = []
         self.longitude = []
         self.location_name = []
         self.coordinate_tuple = []
         self.adj_matrix = []
         self.filename = ""
+        self.use_weighted_matrix = use_weighted_matrix
 
     class GraphReaderException(Exception):
         pass
@@ -53,6 +54,9 @@ class GraphReader:
         for coord in node_coordinates:
             splited_line = coord.split()
             if len(splited_line) == 3:
+                if splited_line[0] in location_name:
+                    raise self.GraphReaderException("Nama simpul harus unik.")
+
                 location_name.append(splited_line[0])
                 latitude.append(float(splited_line[1]))
                 longitude.append(float(splited_line[2]))        
@@ -70,16 +74,25 @@ class GraphReader:
         except:
             raise self.GraphReaderException("File tidak berisi pemisah '~', matriks ketetanggaan tidak dapat dibaca.")
         
-        matrix_rows = result_matrix.splitlines(False) 
-        adj_matrix = [[float(num) for num in row.split(' ')] for row in matrix_rows]
+        matrix_rows = result_matrix.splitlines(False)
+        try: 
+            adj_matrix = [[float(num) for num in row.split(' ')] for row in matrix_rows]
+        except:
+            raise self.GraphReaderException("Matriks harus berisi angka.")
+    
         if (not is_square(adj_matrix, len(location_name))):
             raise self.GraphReaderException("Matriks ketetanggaan harus persegi dan berukuran sama dengan jumlah simpul.")
         else:
-            # Calculate haversine distance for those that are not valued 0
+            # Calculate distance for nodes that are not valued 0
             for i in range(len(adj_matrix)):
                 for j in range(len(adj_matrix[i])):
-                    if adj_matrix[i][j] != 0:
-                        adj_matrix[i][j] = haversine_distance(latitude[i], longitude[i], latitude[j], longitude[j])
+                    if adj_matrix[i][j] > 0:
+                        if self.use_weighted_matrix is False:
+                            # calculate haversine distance if use_weighted_matrix disabled, else use matrix as defined
+                            adj_matrix[i][j] = haversine_distance(latitude[i], longitude[i], latitude[j], longitude[j])
+                    elif adj_matrix[i][j] < 0:
+                        raise self.GraphReaderException("Elemen matriks harus bernilai 0 atau positif.")
+                    
 
         # commit read
         self.latitude = latitude
