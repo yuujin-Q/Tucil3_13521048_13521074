@@ -58,16 +58,29 @@ class LocationGraph(nx.DiGraph):
                     edge_colors.append('y')
                 else:
                     edge_colors.append((0.5,0.5,0.5,0.5))   # transparent gray
+
+            # create a list of node colors
+            node_colors = []
+            for node in self.nodes():
+                if node == solution_path[0]:
+                    node_colors.append('g')
+                elif node == solution_path[len(solution_path)-1]:
+                    node_colors.append('r')
+                elif node in solution_path:
+                    node_colors.append('y')
+                else:
+                    node_colors.append('c')
+                    
         else:
             edge_colors = (0.5,0.5,0.5,0.5)     # default: transparent gray
 
         # Draw nodes, node indices, edges, solution edges
-        nx.draw(self, pos=node_pos, labels=node_index, edge_color=edge_colors)
+        nx.draw(self, pos=node_pos, labels=node_index, edge_color=edge_colors, node_color=node_colors)
 
         if with_weights is True:
             # Draw edges with weights
             edge_labels = {(u, v): f"{self[u][v]['weight'] : .2f}" for (u, v) in self.edges()}
-            nx.draw_networkx_edge_labels(self, node_pos, edge_labels=edge_labels)
+            nx.draw_networkx_edge_labels(self, node_pos, edge_labels=edge_labels, label_pos=0.7)
             
         plt.axis('off')
         plt.show()
