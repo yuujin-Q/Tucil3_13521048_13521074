@@ -5,7 +5,8 @@
 * [General Information](#general-information)
 * [Requirements](#requirements)
 * [How to Run the Program](#how-to-run-the-program)
-* [Screenshot](#screenshot)
+* [How to Use the Program](#how-to-use-the-program)
+* [Screenshots](#screenshots)
 * [Authors](#authors)
 
 ## **General Information**
@@ -47,8 +48,22 @@ or for Linux
 python3 main.py
 ```
 
-## **Screenshot**
-Below are screenshots of the program in use. Note that the coloring for the node path is green for start node, yellow for path nodes, red for stop node, and cyan for other nodes. For the edge path, the coloring is yellow for solution edges and gray for non-solution edges.
+## **How to Use the Program**
+1. Create a text file containing the graph configuration file in the `test` directory. The formatting for the files can be referred from the existing test files.
+2. Run the program.
+3. Input your choice of calculating the edge costs. 
+
+If Haversine is selected, the edge cost between any two nodes will be calculated by coordinates of the two node based on the positive values of the matrix element. For example, with Haversine edge cost, the graph for `test1.txt` will be as shown.
+![Haversine Edge Cost for test1.txt](./doc/haversine_edge_cost.png)
+Else, the edge cost between any two nodes will be as declared in the matrix of the configuration file. For example, following the declared matrix, the edge costs of the graph for `test1.txt` will be as shown.
+![Matrix Edge Cost for test1.txt](./doc/matrix_edge_cost.png)
+
+4. Input your configuration file name.
+5. Input your choice of search algorithm and your choices for the start and finish nodes.
+6. The result will be printed and visualized.
+
+## **Screenshots**
+Below are example screenshots of the program in use. Note that the coloring for the node path is green for start node, yellow for path nodes, red for stop node, and cyan for other nodes. For the edge path, the coloring is yellow for solution edges and gray for non-solution edges.
 
 ![Program Demonstration](./doc/program_demo.png)
 ![Visualization Demonstration](./doc/visualization.png)
