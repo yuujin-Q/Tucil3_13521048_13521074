@@ -1,3 +1,9 @@
+"""
+:file: main.py
+
+main program for route planning between two points of a map
+"""
+
 from graph import *
 from graph_reader import *
 from route_planner import *

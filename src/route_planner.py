@@ -1,7 +1,14 @@
+"""
+:file: route_planner.py
+
+Used to find the shortest distance between two points
+"""
+
 from queue import PriorityQueue
 from graph import LocationGraph
 
-class RoutePlanner():
+
+class RoutePlanner:
     graph = LocationGraph()
     solution_cost = float('inf')
     solution_path = []
@@ -11,15 +18,15 @@ class RoutePlanner():
     def __init__(self, graph, with_astar_heuristic, show_debug=False):
         """
         :param graph: LocationGraph
-        :param with_astar_heuristic: astar heuristic boolean toggle
+        :param with_astar_heuristic: astar heuristic boolean toggle, determines whether UCS or Astar is used
         :param show_debug: debug message toggle
         """
         self.graph = graph
         self.with_astar_heuristic = with_astar_heuristic
         self.show_debug = show_debug
 
-    class SearchNode():
-        def __init__(self, name, path_list, path_cost) -> None:
+    class SearchNode:
+        def __init__(self, name, path_list, path_cost):
             """
             :param name: string of instance location name
             :param path_list: list of location name strings 'visited' by instance
@@ -28,14 +35,22 @@ class RoutePlanner():
             self.name = name
             self.path_list = [location for location in path_list]
             self.path_cost = path_cost
-        
+
         def add_self_to_path_list(self):
+            """
+            marks instances' name as 'visited' in instances' path history
+            """
             self.path_list = self.path_list + [self.name]
-        
+
         def __lt__(self, other):
+            """
+            less than operator overload, used for enqueue
+
+            :param other: another SearchNode instance
+            :return: boolean value of whether self is less than other
+            """
             # less than comparator
             return self.path_cost < other.path_cost
-            
 
     def plan_route(self, start_node_name, finish_node_name):
         """UCS/AStar Search Algorithm
@@ -49,15 +64,16 @@ class RoutePlanner():
         search_pqueue = PriorityQueue()
         starting_node = self.SearchNode(start_node_name, [], 0)
 
-        # enqueue start_node; if is using astar, priority considers the heuristic value
+        # enqueue start_node; if search is using astar, priority considers the heuristic value
         if self.with_astar_heuristic is True:
-            node_priority = starting_node.path_cost + self.graph.get_distance_between(starting_node.name, finish_node_name)
+            node_priority = starting_node.path_cost + self.graph.get_distance_between(starting_node.name,
+                                                                                      finish_node_name)
         else:
             node_priority = starting_node.path_cost
 
         search_pqueue.put((node_priority, starting_node))
         explored_node_names = set()
-        
+
         # SEARCH: do search loop
         while not search_pqueue.empty():
             # dequeue current node to search
@@ -73,11 +89,11 @@ class RoutePlanner():
                 self.solution_path = current_node.path_list
                 self.solution_cost = current_node.path_cost
 
-                return True     # search success
-            
+                return True  # search success
+
             # mark current node name as visited
             explored_node_names.add(current_node.name)
-            
+
             # enqueue neighbors
             for neighbor_name in self.graph.get_neighbors(current_node.name):
                 if neighbor_name not in explored_node_names:
@@ -85,27 +101,33 @@ class RoutePlanner():
 
                     new_neighbor_node = self.SearchNode(neighbor_name, current_node.path_list, neighbor_cost)
 
+                    # enqueue neighbor to search queue; if search is using astar, priority considers the heuristic value
                     if self.with_astar_heuristic is True:
                         node_priority = neighbor_cost + self.graph.get_distance_between(neighbor_name, finish_node_name)
                     else:
                         node_priority = neighbor_cost
 
                     search_pqueue.put((node_priority, new_neighbor_node))
-        
+
         # Search failed
         return False
-    
+
     def get_solution(self):
         """
         :return: tuple of instance's latest solution cost and solution path
         """
         return self.solution_cost, self.solution_path
-    
+
     def print_solution(self):
+        """
+        prints solution route taken and cost of route
+        """
         print(f"Rute = {self.solution_path}")
         print(f"Biaya total = {self.solution_cost}")
 
     def reset_solution(self):
+        """
+        clears saved solution
+        """
         self.solution_cost = float('inf')
         self.solution_path = []
-
